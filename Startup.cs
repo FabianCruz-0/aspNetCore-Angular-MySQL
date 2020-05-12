@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore;
+using MySql.Data.EntityFrameworkCore;
+using System.ComponentModel.Design;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using vsc_net_ang__github_.Persistence;
 
 namespace vsc_net_ang
 {
@@ -20,6 +25,7 @@ namespace vsc_net_ang
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProjDbContext>(options => options.UseMySql(Configuration["ConnectionStrings:Default"]));
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
